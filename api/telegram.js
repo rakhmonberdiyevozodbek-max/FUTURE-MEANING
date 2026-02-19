@@ -1,9 +1,5 @@
 import TelegramBot from 'node-telegram-bot-api';
 
-// Environment variables (set these in Vercel)
-const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -29,6 +25,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
+    // Get credentials from environment variables (set in Vercel)
+    const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+    const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+
     // Create a detailed message for Telegram
     const message = createTelegramMessage(name, email, score, total, percentage, results, timestamp);
 
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     const bot = new TelegramBot(TELEGRAM_TOKEN);
     await bot.sendMessage(TELEGRAM_CHAT_ID, message, { parse_mode: 'HTML' });
 
-    // Also send a summary as a separate message (optional)
+    // Also send a summary as a separate message
     const summary = `📊 <b>Quick Summary</b>\n${name} scored ${score}/${total} (${percentage}%)`;
     await bot.sendMessage(TELEGRAM_CHAT_ID, summary, { parse_mode: 'HTML' });
 
