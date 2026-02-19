@@ -1,0 +1,17 @@
+{
+  "name": "future-tenses-test",
+  "version": "1.0.0",
+  "description": "Future Tenses Test with Telegram Integration",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site, no build needed'"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.64.0",
+    "axios": "^1.6.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
